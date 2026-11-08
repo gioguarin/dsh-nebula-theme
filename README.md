@@ -5,7 +5,7 @@ night sky with a live fire field along the bottom edge. The fire stays a low
 ember line while the harness is idle and rises into separate flame fronts while
 any agent is thinking. The sky itself never brightens.
 
-![The theme in a fresh chat](preview/new-chat-desktop.png)
+![The theme in a fresh chat](preview/new-chat.png)
 *A fresh chat with the sidebar collapsed: idle embers under the drifting sky.*
 
 ![Idle](preview/chat-idle.png)
