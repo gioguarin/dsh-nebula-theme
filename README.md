@@ -5,14 +5,18 @@ night sky with a live fire field along the bottom edge. The fire stays a low
 ember line while the harness is idle and rises into separate flame fronts while
 any agent is thinking. The sky itself never brightens.
 
+![The theme in a fresh chat](preview/new-chat-desktop.png)
+*A fresh chat with the sidebar collapsed: idle embers under the drifting sky.*
+
 ![Idle](preview/chat-idle.png)
 *Idle — a low ember line under a still, drifting sky.*
 
 ![Thinking](preview/chat-thinking.png)
 *Thinking — the flame fronts rise and the floating chats pick up the ember frame.*
 
-Both images are rendered from [`demo/index.html`](demo/index.html) with synthetic
-content; no real session data is used.
+The idle and thinking images are rendered from [`demo/index.html`](demo/index.html)
+with synthetic content; no real session data is used. The first image is the live
+client with the sidebar collapsed.
 
 ## What it does
 
