@@ -1,0 +1,52 @@
+{
+  "name": "@local/nebula-theme",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ember-nebula theme for the DeepSeek Harness web client: a filamented night sky with a live fire field that stays calm while idle and rises while an agent thinks.",
+  "type": "module",
+  "license": "MIT",
+  "author": "gioguarin",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gioguarin/dsh-nebula-theme.git"
+  },
+  "homepage": "https://github.com/gioguarin/dsh-nebula-theme#readme",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "theme",
+    "nebula",
+    "ember"
+  ],
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg"
+  ],
+  "scripts": {
+    "preview": "node scripts/capture-previews.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-theme",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-session"
+      ]
+    }
+  }
+}

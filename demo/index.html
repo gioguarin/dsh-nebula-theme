@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nebula theme — preview</title>
+<style>
+  :root {
+    --bg: #05030c;
+    --label-1: rgb(240, 238, 255);
+    --label-2: rgb(184, 176, 224);
+    --label-3: rgb(160, 151, 204);
+    --label-4: rgb(122, 113, 162);
+    --line-1: rgba(142, 124, 255, 0.12);
+    --line-2: rgba(142, 124, 255, 0.20);
+    --line-3: rgba(142, 124, 255, 0.26);
+    --ember: rgb(255, 186, 120);
+    --sidebar: rgba(11, 9, 30, 0.72);
+    --panel: rgba(19, 15, 44, 0.68);
+    --panel-2: rgba(28, 22, 60, 0.72);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  html { background: var(--bg); }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Inter, system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--label-1);
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  .shell {
+    position: relative;
+    z-index: 0;
+    display: flex;
+    height: 100vh;
+  }
+
+  /* ---------- sidebar ---------- */
+
+  .sidebar {
+    width: 260px;
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    background: var(--sidebar);
+    border-right: 1px solid var(--line-1);
+    backdrop-filter: blur(22px) saturate(1.2);
+    -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 16px 16px 12px;
+  }
+
+  .brand img { width: 26px; height: 26px; border-radius: 8px; }
+
+  .brand-name { font-size: 13.5px; font-weight: 650; letter-spacing: 0.1px; }
+
+  .brand-badge {
+    margin-top: 3px;
+    font-size: 9px;
+    letter-spacing: 0.4px;
+    color: var(--label-3);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    padding: 1px 6px;
+    width: fit-content;
+    text-transform: uppercase;
+  }
+
+  .new-session svg { width: 16px; height: 16px; flex: none; }
+
+  .new-session {
+    margin: 4px 14px 10px;
+    padding: 9px 12px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 13px;
+    color: var(--label-1);
+    background: linear-gradient(180deg, rgba(48, 38, 96, 0.55), rgba(30, 24, 62, 0.55));
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  }
+
+  .nav { padding: 2px 8px; }
+
+  .nav-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 9px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--label-2);
+  }
+
+  .nav-row svg { width: 15px; height: 15px; opacity: 0.75; }
+
+  .nav-row.active {
+    color: var(--label-1);
+    background: rgba(142, 124, 255, 0.13);
+  }
+
+  .section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 16px 14px 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--label-3);
+  }
+
+  .section .spacer { flex: 1; }
+  .section svg { width: 14px; height: 14px; opacity: 0.6; }
+
+  .workspaces { flex: 1; overflow: hidden; padding: 0 8px; }
+
+  .ws {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 6px 9px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--label-2);
+  }
+
+  .ws svg { width: 15px; height: 15px; opacity: 0.65; }
+
+  .session {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 1px 0 1px 14px;
+    padding: 6px 9px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    color: var(--label-2);
+  }
+
+  .session.current {
+    color: var(--label-1);
+    background: linear-gradient(90deg, rgba(90, 62, 190, 0.34), rgba(60, 44, 130, 0.16));
+    border: 1px solid var(--line-1);
+  }
+
+  .session .dot {
+    width: 7px; height: 7px; border-radius: 999px;
+    background: var(--ember);
+    box-shadow: 0 0 8px rgba(255, 170, 96, 0.7);
+    flex: none;
+  }
+
+  .session .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .session .time { font-size: 11px; color: var(--label-4); }
+
+  .sidebar-foot {
+    padding: 12px 16px 14px;
+    font-size: 11px;
+    color: var(--label-4);
+    border-top: 1px solid var(--line-1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .sidebar-foot .dot {
+    width: 6px; height: 6px; border-radius: 999px;
+    background: rgb(112, 240, 190);
+    box-shadow: 0 0 8px rgba(112, 240, 190, 0.7);
+  }
+
+  /* ---------- main ---------- */
+
+  .main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+  .topbar {
+    height: 54px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 22px;
+    border-bottom: 1px solid var(--line-1);
+  }
+
+  .title { font-size: 14.5px; font-weight: 650; }
+  .chip {
+    font-size: 11px;
+    color: var(--label-2);
+    border: 1px solid var(--line-2);
+    background: rgba(28, 22, 60, 0.5);
+    border-radius: 999px;
+    padding: 2px 9px;
+  }
+
+  .topbar .spacer { flex: 1; }
+  .topbar .ico { width: 16px; height: 16px; opacity: 0.7; }
+
+  .tabs {
+    flex: none;
+    display: flex;
+    gap: 18px;
+    padding: 0 22px;
+    border-bottom: 1px solid var(--line-1);
+    height: 42px;
+    align-items: stretch;
+  }
+
+  .tab {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: var(--label-3);
+    border-bottom: 2px solid transparent;
+    padding-top: 2px;
+  }
+
+  .tab.active {
+    color: var(--label-1);
+    border-bottom-color: var(--ember);
+  }
+
+  .transcript {
+    flex: 1;
+    overflow: hidden;
+    padding: 26px 32px 0;
+  }
+
+  .thread { max-width: 860px; margin: 0 auto; }
+
+  .msg { margin-bottom: 18px; }
+
+  .msg p { margin: 0 0 12px; color: var(--label-1); }
+
+  .msg ul { margin: 0 0 12px; padding-left: 22px; color: var(--label-1); }
+  .msg li { margin: 4px 0; }
+  .msg li::marker { color: var(--label-3); }
+
+  .msg strong { font-weight: 650; }
+
+  .inline-code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+    font-size: 12px;
+    color: rgb(216, 202, 255);
+    background: rgba(142, 124, 255, 0.16);
+    border: 1px solid rgba(142, 124, 255, 0.14);
+    border-radius: 5px;
+    padding: 1px 5px;
+  }
+
+  .code-card {
+    background: rgba(18, 14, 42, 0.86);
+    border: 1px solid var(--line-1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 14px 0 18px;
+  }
+
+  .code-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 13px;
+    font-size: 11.5px;
+    color: var(--label-3);
+    background: rgba(28, 22, 60, 0.9);
+    border-bottom: 1px solid var(--line-1);
+  }
+
+  .code-head .spacer { flex: 1; }
+  .code-head svg { width: 13px; height: 13px; opacity: 0.65; }
+
+  pre {
+    margin: 0;
+    padding: 14px 16px;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+    font-size: 12.5px;
+    line-height: 1.65;
+    color: rgb(226, 219, 255);
+    overflow: hidden;
+  }
+
+  pre .k { color: rgb(190, 160, 255); }
+  pre .s { color: rgb(255, 196, 140); }
+  pre .c { color: rgb(122, 113, 162); }
+
+  .tool-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 13px;
+    margin: 0 0 18px;
+    border: 1px solid var(--line-1);
+    border-radius: 10px;
+    background: rgba(19, 15, 44, 0.5);
+    font-size: 12.5px;
+    color: var(--label-2);
+  }
+
+  .tool-card .ok {
+    width: 16px; height: 16px; border-radius: 999px;
+    background: rgba(112, 240, 190, 0.16);
+    border: 1px solid rgba(112, 240, 190, 0.4);
+    color: rgb(112, 240, 190);
+    font-size: 10px;
+    display: grid;
+    place-items: center;
+    flex: none;
+  }
+
+  .tool-card .path { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+  .tool-card .spacer { flex: 1; }
+  .tool-card .meta { font-size: 11px; color: var(--label-4); }
+
+  /* ---------- composer ---------- */
+
+  .composer-wrap {
+    flex: none;
+    padding: 10px 32px 8px;
+    max-width: 924px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .composer {
+    border: 1px solid var(--line-2);
+    border-radius: 14px;
+    padding: 13px 14px 9px;
+    box-shadow: 0 10px 30px rgba(2, 1, 10, 0.45), 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  }
+
+  .composer .placeholder { color: var(--label-4); font-size: 13.5px; }
+
+  .composer .bar {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--label-3);
+  }
+
+  .composer .plus {
+    width: 24px; height: 24px;
+    border-radius: 999px;
+    border: 1px solid var(--line-2);
+    display: grid; place-items: center;
+    color: var(--label-2);
+    font-size: 15px;
+  }
+
+  .composer .spacer { flex: 1; }
+
+  .composer .send {
+    width: 26px; height: 26px;
+    border-radius: 999px;
+    background: rgb(228, 224, 255);
+    color: #1a1030;
+    display: grid; place-items: center;
+    font-size: 13px;
+  }
+
+  .statusbar {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 6px 0 10px;
+    font-size: 11px;
+    color: var(--label-4);
+  }
+
+  .statusbar b { font-weight: 550; color: var(--label-3); }
+
+  /* ---------- floating active chats (theme-aware) ---------- */
+
+  .dsac-window {
+    position: fixed;
+    right: 24px;
+    top: 596px;
+    width: 300px;
+    border-radius: 14px;
+    border: 1px solid var(--line-2);
+    padding: 10px 10px 8px;
+    z-index: 5;
+    font-size: 12.5px;
+  }
+
+  .dsac-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 6px 8px;
+  }
+
+  .dsac-title { font-size: 12.5px; font-weight: 650; color: var(--label-1); }
+  .dsac-count {
+    font-size: 10.5px;
+    color: var(--label-2);
+    background: rgba(142, 124, 255, 0.16);
+    border-radius: 999px;
+    padding: 1px 7px;
+  }
+  .dsac-head .spacer { flex: 1; }
+  .dsac-head .mini { color: var(--label-3); font-size: 14px; }
+
+  .dsac-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 8px;
+    border-radius: 8px;
+    color: var(--label-2);
+  }
+
+  .dsac-row + .dsac-row { border-top: 1px solid rgba(142, 124, 255, 0.08); }
+  .dsac-pin { color: var(--ember); font-size: 11px; }
+  .dsac-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .dsac-badge {
+    font-size: 10px;
+    color: var(--label-3);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    padding: 1px 7px;
+  }
+  .dsac-live {
+    width: 6px; height: 6px; border-radius: 999px;
+    background: rgb(112, 240, 190);
+    box-shadow: 0 0 7px rgba(112, 240, 190, 0.8);
+  }
+
+  .demo-note {
+    position: fixed;
+    left: 274px;
+    bottom: 12px;
+    font-size: 10px;
+    letter-spacing: 0.3px;
+    color: rgba(160, 151, 204, 0.55);
+    text-transform: uppercase;
+    z-index: 5;
+  }
+</style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="../icon.svg" alt="">
+        <div>
+          <div class="brand-name">Nebula theme</div>
+          <div class="brand-badge">Demo</div>
+        </div>
+      </div>
+
+      <div class="new-session">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
+        New Session
+      </div>
+
+      <nav class="nav">
+        <div class="nav-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M10 3.5v5L4.8 18a2 2 0 0 0 1.8 3h10.8a2 2 0 0 0 1.8-3L14 8.5v-5" stroke-linecap="round"/><path d="M10 3.5h4" stroke-linecap="round"/></svg>
+          Plugins
+        </div>
+        <div class="nav-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.5V12l3 2" stroke-linecap="round"/></svg>
+          Automation tasks
+        </div>
+        <div class="nav-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="5" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>
+          More
+        </div>
+      </nav>
+
+      <div class="section">
+        Workspaces
+        <span class="spacer"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
+      </div>
+
+      <div class="workspaces">
+        <div class="ws">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3.5 7.5A1.5 1.5 0 0 1 5 6h4l2 2h8a1.5 1.5 0 0 1 1.5 1.5v8A1.5 1.5 0 0 1 19 19H5a1.5 1.5 0 0 1-1.5-1.5Z"/></svg>
+          design-lab
+        </div>
+        <div class="session current">
+          <span class="dot"></span>
+          <span class="name">Idle and thinking states</span>
+          <span class="time">now</span>
+        </div>
+        <div class="session">
+          <span class="dot" style="background:rgb(142,124,255);box-shadow:0 0 8px rgba(142,124,255,.5)"></span>
+          <span class="name">Composer contrast pass</span>
+          <span class="time">2h</span>
+        </div>
+        <div class="session">
+          <span class="dot" style="background:rgba(160,151,204,.5);box-shadow:none"></span>
+          <span class="name">Texture banding check</span>
+          <span class="time">1d</span>
+        </div>
+
+        <div class="ws" style="margin-top:6px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3.5 7.5A1.5 1.5 0 0 1 5 6h4l2 2h8a1.5 1.5 0 0 1 1.5 1.5v8A1.5 1.5 0 0 1 19 19H5a1.5 1.5 0 0 1-1.5-1.5Z"/></svg>
+          notes
+        </div>
+        <div class="session">
+          <span class="dot" style="background:rgba(160,151,204,.5);box-shadow:none"></span>
+          <span class="name">Palette study</span>
+          <span class="time">3d</span>
+        </div>
+
+        <div class="ws" style="margin-top:6px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3.5 7.5A1.5 1.5 0 0 1 5 6h4l2 2h8a1.5 1.5 0 0 1 1.5 1.5v8A1.5 1.5 0 0 1 19 19H5a1.5 1.5 0 0 1-1.5-1.5Z"/></svg>
+          sandbox
+        </div>
+      </div>
+
+      <div class="sidebar-foot">
+        <span class="dot"></span>
+        Theme plugin preview
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <span class="title">Nebula theme — visual check</span>
+        <span class="chip">Demo mode</span>
+        <span class="spacer"></span>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="5" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M9 5v14"/></svg>
+      </header>
+
+      <div class="tabs">
+        <span class="tab active">Chat</span>
+        <span class="tab">Trajectory</span>
+        <span class="tab">…</span>
+      </div>
+
+      <div class="transcript">
+        <div class="thread">
+          <div class="msg">
+            <p>The theme is one static sky plus one live fire field. The sky is generated once at load, dithered against banding, and never brightens; only the flame layer reacts when an agent starts working.</p>
+            <ul>
+              <li><strong>Idle</strong> keeps a low ember line along the bottom edge.</li>
+              <li><strong>Thinking</strong> raises separate flame fronts and warms the floating chat frames.</li>
+              <li>The reading veil sits above the flames, so transcript text keeps its contrast.</li>
+            </ul>
+          </div>
+
+          <div class="code-card">
+            <div class="code-head">
+              <span>theme.css</span>
+              <span class="spacer"></span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+            </div>
+            <pre><span class="c">/* the only thing that reacts to agent state */</span>
+body[data-ds-nebula-theme][data-ds-nebula-think=<span class="s">'on'</span>] .dsnb-fire {
+  <span class="k">opacity</span>: 0.95;
+  <span class="k">filter</span>: blur(5px) saturate(1.08);
+}</pre>
+          </div>
+
+          <div class="msg">
+            <p>Everything is scoped to a single body attribute, so disabling the plugin removes every layer and token override without touching the base palette.</p>
+          </div>
+
+          <div class="tool-card">
+            <span class="ok">✓</span>
+            <span>Read</span>
+            <span class="path">client.js</span>
+            <span class="spacer"></span>
+            <span class="meta">736 lines · synthetic preview</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="composer-wrap">
+        <div class="composer" data-composer-card>
+          <div class="placeholder">Message or run a task, / commands, @ files or sessions</div>
+          <div class="bar">
+            <span class="plus">+</span>
+            <span>Workspace Write</span>
+            <span class="spacer"></span>
+            <span>DeepSeek V4 · High</span>
+            <span class="send">↑</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="statusbar">
+        <span><b>12</b> turns</span>
+        <span><b>81</b> steps</span>
+        <span><b>Preview</b> content is synthetic</span>
+      </div>
+    </main>
+  </div>
+
+  <div class="dsac-window">
+    <div class="dsac-head">
+      <span class="dsac-title">Active chats</span>
+      <span class="dsac-count">2</span>
+      <span class="spacer"></span>
+      <span class="mini">−</span>
+    </div>
+    <div class="dsac-row">
+      <span class="dsac-pin">✦</span>
+      <span class="dsac-name">Idle and thinking states</span>
+      <span class="dsac-live"></span>
+    </div>
+    <div class="dsac-row">
+      <span class="dsac-pin" style="color:rgb(160,151,204)">✦</span>
+      <span class="dsac-name">Composer contrast pass</span>
+      <span class="dsac-badge">Current</span>
+    </div>
+  </div>
+
+  <div class="demo-note">Synthetic preview · no real session data</div>
+
+  <script>
+    // Minimal stand-in for the DSH client module loader, so this page runs the
+    // real client.js instead of a copy of it.
+    const ReactStub = { useEffect() {}, createElement() { return null; } };
+    const modules = {};
+    window.__ModuleLoader__ = {
+      load(def) {
+        modules[def.id] = def.factory((name) => (name === 'react' ? ReactStub : undefined));
+      },
+    };
+  </script>
+  <script src="../client.js"></script>
+  <script>
+    (function boot() {
+      const mod = modules['@local/nebula-theme'];
+      if (!mod) return;
+      const cleanups = [];
+      const ctx = {
+        effect(fn) {
+          const dispose = fn();
+          if (typeof dispose === 'function') cleanups.push(dispose);
+        },
+        theme: { overrideTokens() {} },
+        slots: { inject() {}, register() { return {}; } },
+      };
+      mod.apply(ctx);
+
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('thinking') === '1') {
+        document.body.setAttribute('data-ds-nebula-think', 'on');
+      }
+      window.__nebulaReady = true;
+      window.__nebulaDispose = () => {
+        for (const dispose of cleanups) dispose();
+      };
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+- insert:
+    - id: nebula-theme
+      name: '@local/nebula-theme'

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Ember nebula theme">
+  <defs>
+    <radialGradient id="ember-cool" cx="42%" cy="34%" r="72%">
+      <stop offset="0" stop-color="#b58cff"/>
+      <stop offset="0.5" stop-color="#5b34c9" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#0a0618" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ember-fire" cx="54%" cy="102%" r="86%">
+      <stop offset="0" stop-color="#ff9a4d"/>
+      <stop offset="0.4" stop-color="#e04a5f" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#2a1458" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ember-base" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#070512"/>
+      <stop offset="1" stop-color="#150a16"/>
+    </linearGradient>
+    <clipPath id="ember-round"><rect width="32" height="32" rx="9"/></clipPath>
+  </defs>
+  <g clip-path="url(#ember-round)">
+    <rect width="32" height="32" fill="url(#ember-base)"/>
+    <rect width="32" height="32" fill="url(#ember-cool)"/>
+    <rect width="32" height="32" fill="url(#ember-fire)"/>
+  </g>
+</svg>
